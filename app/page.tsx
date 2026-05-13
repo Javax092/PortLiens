@@ -67,20 +67,20 @@ export default function Page() {
         )}
       </AnimatePresence>
 
-      <main className="relative min-h-screen overflow-hidden bg-[#02030a] text-slate-100">
+      <main className="relative min-h-[100svh] overflow-x-clip bg-[#02030a] text-slate-100">
         <SpaceBackground />
         <CinematicOverlay />
         <Navbar />
 
-        <div className="relative z-10 mx-auto flex w-full max-w-[1520px] flex-col gap-4 px-3 pb-10 pt-24 sm:px-5 sm:pt-28">
+        <div className="relative z-10 mx-auto flex w-full max-w-[1520px] flex-col gap-4 px-3 pb-10 pt-20 sm:px-5 sm:pt-24">
           <section
             id="core"
-            className="hud-panel overflow-hidden px-4 py-5 sm:px-6 sm:py-6 xl:px-8"
+            className="hud-panel overflow-hidden px-3 py-4 sm:px-5 sm:py-5 xl:px-8"
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_58%_38%,rgba(34,211,238,0.08),transparent_28%),radial-gradient(circle_at_30%_18%,rgba(90,89,255,0.1),transparent_24%)]" />
 
             <motion.div
-              className="relative grid gap-6 xl:grid-cols-[320px_minmax(0,1fr)_320px]"
+              className="relative grid gap-4 xl:grid-cols-[320px_minmax(0,1fr)_320px]"
               initial={
                 reduceMotion ? undefined : { opacity: 0, y: 30, scale: 0.985 }
               }
@@ -93,7 +93,7 @@ export default function Page() {
                 ease: "easeOut",
               }}
             >
-              <div className="grid content-start gap-4">
+              <div className="order-2 grid content-start gap-3 xl:order-1 xl:gap-4">
                 <HudPanel
                   label="SETOR RL-04"
                   value={siteConfig.name.toUpperCase()}
@@ -145,10 +145,38 @@ export default function Page() {
                 </HudPanel>
               </div>
 
-              <div className="relative">
-                <div className="mb-4 flex flex-wrap items-center gap-2">
+              <div className="order-1 relative xl:order-2">
+                <div className="reading-surface mb-3 rounded-[1.35rem] p-4 sm:mb-4 sm:p-5">
+                  <div className="max-w-3xl">
+                    <p className="panel-label">RYAN SYSTEMS // NUCLEO PRINCIPAL</p>
+                    <h1 className="hero-title mt-3 text-[2rem] font-semibold sm:text-[2.8rem]">
+                      Ryan Lima
+                    </h1>
+                    <p className="mt-3 max-w-2xl font-mono text-[0.72rem] uppercase tracking-[0.26em] text-cyan-100/80 sm:text-sm">
+                      Engenheiro de Sistemas • IA • Automacao • Produtos Digitais
+                    </p>
+                    <p className="body-copy mt-4 max-w-2xl text-sm sm:text-base">
+                      Sistemas web, automacoes e interfaces premium com leitura clara,
+                      operacao real e foco em conversao.
+                    </p>
+                  </div>
+
+                  <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+                    <a href="#projects" className="hud-button justify-center sm:w-auto">
+                      VER PROJETOS
+                    </a>
+                    <a
+                      href="#contato"
+                      className="hud-button hud-button-secondary justify-center sm:w-auto"
+                    >
+                      FALAR COMIGO
+                    </a>
+                  </div>
+                </div>
+
+                <div className="mb-3 grid gap-2 sm:mb-4 sm:grid-cols-2 xl:flex xl:flex-wrap xl:items-center">
                   {topStatus.map((item) => (
-                    <div key={item.label} className="hud-chip min-w-[132px]">
+                    <div key={item.label} className="hud-chip min-w-0">
                       <p className="panel-label text-[0.58rem]">{item.label}</p>
                       <p className="mt-1 text-sm tracking-[0.18em] text-white">
                         {item.value}
@@ -159,7 +187,7 @@ export default function Page() {
 
                 <AICore />
 
-                <div className="mt-3 grid gap-3 md:grid-cols-3">
+                <div className="mt-3 grid gap-3 sm:grid-cols-3">
                   {[
                     { label: "TELEMETRIA", value: "24/7", icon: Activity },
                     { label: "LATENCIA", value: "12MS", icon: Radio },
@@ -181,7 +209,7 @@ export default function Page() {
                   ))}
                 </div>
 
-                <div className="reading-surface mt-4 rounded-[1.5rem] p-3 sm:p-4">
+                <div className="reading-surface mt-4 rounded-[1.35rem] p-3 sm:rounded-[1.5rem] sm:p-4">
                   <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                     <div className="content-shield max-w-2xl">
                       <p className="panel-label">MODO DE LEITURA</p>
@@ -203,7 +231,7 @@ export default function Page() {
                             key={mode.id}
                             type="button"
                             onClick={() => setAudienceMode(mode.id)}
-                            className={`rounded-[1.1rem] border px-4 py-3 text-left transition ${
+                            className={`min-h-[84px] rounded-[1.1rem] border px-4 py-3 text-left transition ${
                               active
                                 ? "border-cyan-300/34 bg-cyan-400/12 text-white shadow-[0_10px_35px_rgba(6,182,212,0.08)]"
                                 : "border-white/10 bg-black/20 text-slate-300 hover:border-cyan-300/16 hover:text-white"
@@ -279,7 +307,7 @@ export default function Page() {
                 </div>
               </div>
 
-              <div className="grid content-start gap-4">
+              <div className="order-3 grid content-start gap-3 xl:gap-4">
                 <HudPanel label="RASTRO EXTERNO" value="SINAL DESCONHECIDO">
                   <div className="mt-4 space-y-3">
                     <div className="flex items-center gap-3 text-cyan-100">
@@ -386,7 +414,7 @@ export default function Page() {
         target="_blank"
         rel="noreferrer noopener"
         aria-label="Falar no WhatsApp"
-        className="fixed bottom-4 right-4 z-[60] inline-flex items-center gap-2 rounded-full border border-emerald-300/25 bg-emerald-400/15 px-4 py-3 text-sm font-medium text-emerald-100 shadow-[0_18px_50px_rgba(0,0,0,0.38)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-emerald-400/20 sm:bottom-5 sm:right-5"
+        className="fixed bottom-4 right-4 z-[60] inline-flex min-h-12 items-center gap-2 rounded-full border border-emerald-300/25 bg-emerald-400/15 px-4 py-3 text-sm font-medium text-emerald-100 shadow-[0_18px_50px_rgba(0,0,0,0.38)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-emerald-400/20 sm:bottom-5 sm:right-5"
       >
         <MessageCircleMore size={18} />
         <span className="hidden sm:inline">WhatsApp</span>

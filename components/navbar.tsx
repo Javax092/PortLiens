@@ -34,22 +34,26 @@ export function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 py-3 sm:px-5 sm:py-4">
-      <nav className="mx-auto flex max-w-[1520px] items-center justify-between gap-4 rounded-[1.4rem] border border-cyan-300/10 bg-slate-950/55 px-4 py-3 shadow-[0_20px_80px_rgba(0,0,0,0.35)] backdrop-blur-2xl">
-        <a href="#core" className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-[1rem] border border-cyan-300/16 bg-cyan-400/10 font-mono text-sm tracking-[0.2em] text-cyan-100">
+      <nav className="mx-auto flex max-w-[1520px] items-center justify-between gap-3 rounded-[1.25rem] border border-cyan-300/10 bg-slate-950/70 px-3 py-2.5 shadow-[0_20px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:rounded-[1.4rem] sm:px-4 sm:py-3">
+        <a href="#core" className="flex min-w-0 items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[0.95rem] border border-cyan-300/16 bg-cyan-400/10 font-mono text-sm tracking-[0.2em] text-cyan-100 sm:h-11 sm:w-11">
             {siteConfig.shortBrand}
           </div>
-          <div>
-            <p className="panel-label">{siteConfig.brand}</p>
-            <p className="mt-1 text-sm font-medium tracking-[0.2em] text-white">CENTRAL PROFISSIONAL</p>
+          <div className="min-w-0">
+            <p className="panel-label truncate">{siteConfig.brand}</p>
+            <p className="mt-1 truncate text-[0.68rem] font-medium tracking-[0.18em] text-white sm:text-sm sm:tracking-[0.2em]">
+              CENTRAL PROFISSIONAL
+            </p>
           </div>
         </a>
 
         <button
           type="button"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-[1rem] border border-white/10 bg-white/5 text-slate-100 md:hidden"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[1rem] border border-white/10 bg-white/5 text-slate-100 md:hidden"
           onClick={() => setMenuOpen((current) => !current)}
           aria-label="Toggle navigation"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-nav"
         >
           {menuOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
@@ -81,14 +85,17 @@ export function Navbar() {
       </nav>
 
       {menuOpen && (
-        <div className="mx-auto mt-3 max-w-[1520px] rounded-[1.4rem] border border-cyan-300/10 bg-slate-950/88 p-3 backdrop-blur-2xl md:hidden">
+        <div
+          id="mobile-nav"
+          className="mx-auto mt-3 max-w-[1520px] rounded-[1.25rem] border border-cyan-300/10 bg-slate-950/92 p-3 backdrop-blur-xl md:hidden"
+        >
           <div className="flex flex-col gap-1">
             {navItems.map((item) => (
               <a
                 key={item.id}
                 href={item.href}
                 onClick={() => setMenuOpen(false)}
-                className={`rounded-[1rem] px-4 py-3 text-sm tracking-[0.18em] ${
+                className={`min-h-12 rounded-[1rem] px-4 py-3 text-sm tracking-[0.18em] ${
                   activeSection === item.id
                     ? "bg-cyan-400/10 text-cyan-100"
                     : "text-slate-300 hover:bg-white/5 hover:text-white"

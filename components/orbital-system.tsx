@@ -21,10 +21,10 @@ export function OrbitalSystem({
   const reduceMotion = useReducedMotion();
 
   return (
-    <section id="orbit" className="hud-panel relative min-h-[540px] overflow-hidden p-4 sm:p-6">
+    <section id="orbit" className="hud-panel relative overflow-hidden p-4 sm:p-6">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(34,211,238,0.08),transparent_42%)]" />
       <div className="orbital-depth-map absolute inset-0" />
-      <div className="relative flex h-full flex-col gap-6">
+      <div className="relative flex h-full flex-col gap-5 sm:gap-6">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="panel-label">SISTEMA ORBITAL</p>
@@ -32,12 +32,42 @@ export function OrbitalSystem({
               MODULOS DE PROJETO
             </h3>
           </div>
-          <p className="max-w-md font-mono text-xs uppercase tracking-[0.24em] text-slate-400">
+          <p className="max-w-md font-mono text-xs uppercase tracking-[0.22em] text-slate-400">
             TOQUE EM UM SATELITE PARA ABRIR O MODULO OPERACIONAL
           </p>
         </div>
 
-        <div className="relative min-h-[420px] flex-1 overflow-hidden rounded-[1.8rem] border border-cyan-300/10 bg-black/15">
+        <div className="grid gap-4 md:hidden">
+          {projects.map((project) => {
+            const active = project.id === activeId;
+
+            return (
+              <button
+                key={project.id}
+                type="button"
+                onClick={() => onSelect(project.id)}
+                className={`reading-surface rounded-[1.3rem] p-4 text-left transition ${
+                  active ? "border-cyan-300/18 bg-cyan-400/[0.06]" : ""
+                }`}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="panel-label text-[0.54rem]">{project.status}</p>
+                    <h4 className="mt-2 text-base font-semibold tracking-[0.12em] text-white">
+                      {project.name}
+                    </h4>
+                    <p className="mt-2 text-sm leading-6 text-slate-300">
+                      {project.short}
+                    </p>
+                  </div>
+                  <span className="tech-label shrink-0">{project.category}</span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="relative hidden min-h-[420px] flex-1 overflow-hidden rounded-[1.8rem] border border-cyan-300/10 bg-black/15 md:block">
           <div className="orbital-sweep-line" />
           <div className="orbital-center" />
           <div className="orbital-ring ring-one" />

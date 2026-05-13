@@ -59,13 +59,13 @@ export function ProjectsSection({ audienceMode, onOpenProject }: ProjectsSection
                 whileHover={{ y: -4 }}
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{ duration: 0.45, delay: index * 0.06 }}
-                className="reading-surface relative overflow-hidden rounded-[1.5rem] p-5 shadow-[0_24px_70px_rgba(0,0,0,0.4)]"
+                className="reading-surface project-card relative overflow-hidden rounded-[1.35rem] p-4 shadow-[0_24px_70px_rgba(0,0,0,0.4)] sm:rounded-[1.5rem] sm:p-5"
               >
                 <div className="project-card-grid" />
 
                 <div className="relative">
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                    <div className="content-shield">
+                    <div className="content-shield min-w-0">
                       <div className="mb-3 flex flex-wrap gap-2">
                         <span className="tech-label">problema</span>
                         <span className="tech-label">stack</span>
@@ -78,7 +78,7 @@ export function ProjectsSection({ audienceMode, onOpenProject }: ProjectsSection
                       >
                         {project.status}
                       </span>
-                      <h3 className="section-title mt-4 text-[1.6rem] font-semibold leading-tight text-white sm:text-[1.9rem]">
+                      <h3 className="section-title mt-4 text-[1.35rem] font-semibold leading-tight text-white sm:text-[1.9rem]">
                         {project.title}
                       </h3>
                       <p className="mt-2 text-sm text-cyan-100/84 sm:text-[0.96rem]">{project.category}</p>
@@ -87,7 +87,7 @@ export function ProjectsSection({ audienceMode, onOpenProject }: ProjectsSection
                     <button
                       type="button"
                       onClick={() => onOpenProject(project.id)}
-                      className="inline-flex items-center justify-center rounded-2xl border border-cyan-300/14 bg-cyan-400/[0.08] p-3 text-cyan-100 transition hover:-translate-y-0.5 hover:bg-cyan-400/[0.12]"
+                      className="inline-flex min-h-12 min-w-12 items-center justify-center rounded-2xl border border-cyan-300/14 bg-cyan-400/[0.08] p-3 text-cyan-100 transition hover:-translate-y-0.5 hover:bg-cyan-400/[0.12]"
                       aria-label={`Abrir detalhes de ${project.title}`}
                     >
                       <ArrowUpRight size={20} />
@@ -146,7 +146,7 @@ export function ProjectsSection({ audienceMode, onOpenProject }: ProjectsSection
                     <button
                       type="button"
                       onClick={() => onOpenProject(project.id)}
-                      className="hud-button justify-center"
+                      className="hud-button min-h-12 justify-center sm:flex-1"
                     >
                       Ver caso completo
                     </button>
@@ -160,7 +160,7 @@ export function ProjectsSection({ audienceMode, onOpenProject }: ProjectsSection
                           href={link.href}
                           target={link.external ? "_blank" : undefined}
                           rel={link.external ? "noreferrer noopener" : undefined}
-                          className="hud-button hud-button-secondary justify-center"
+                          className="hud-button hud-button-secondary min-h-12 justify-center sm:flex-1"
                         >
                           {isGithub ? <Github size={16} /> : <ArrowUpRight size={16} />}
                           <span>{link.label}</span>

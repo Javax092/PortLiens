@@ -24,7 +24,7 @@ export function RadarSystem({
 
   return (
     <div
-      className={`radar-shell relative ${compact ? "h-40 w-40 sm:h-48 sm:w-48" : "h-[260px] w-[260px] sm:h-[320px] sm:w-[320px]"} ${className}`}
+      className={`radar-shell relative ${compact ? "h-36 w-36 sm:h-48 sm:w-48" : "h-[220px] w-[220px] sm:h-[320px] sm:w-[320px]"} ${className}`}
     >
       <div className="radar-ring inset-0" />
       <div className="radar-ring inset-[16%]" />

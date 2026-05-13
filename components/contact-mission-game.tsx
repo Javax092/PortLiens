@@ -131,10 +131,10 @@ export function ContactMissionGame() {
   }, [activeChannel, allChannelsUnlocked, unlockedChannels]);
 
   return (
-    <section id="contato" className="hud-panel relative overflow-hidden p-5 sm:p-6 xl:p-7">
+    <section id="contato" className="hud-panel relative overflow-hidden p-4 sm:p-6 xl:p-7">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,rgba(34,211,238,0.12),transparent_24%),radial-gradient(circle_at_82%_68%,rgba(59,130,246,0.12),transparent_28%),linear-gradient(180deg,rgba(7,15,28,0),rgba(2,6,23,0.4))]" />
       <motion.div
-        className="pointer-events-none absolute inset-y-0 left-[-35%] w-[38%] bg-[linear-gradient(90deg,transparent,rgba(34,211,238,0.12),transparent)]"
+        className="pointer-events-none absolute inset-y-0 left-[-35%] hidden w-[38%] bg-[linear-gradient(90deg,transparent,rgba(34,211,238,0.12),transparent)] md:block"
         animate={reduceMotion ? undefined : { x: ["0%", "360%"] }}
         transition={{ duration: 3.8, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
       />
@@ -152,13 +152,13 @@ export function ContactMissionGame() {
           </div>
 
           <div className="grid gap-2 sm:grid-cols-2">
-            <div className="hud-chip min-w-[190px]">
+            <div className="hud-chip min-w-0">
               <p className="panel-label text-[0.56rem]">CANAIS DESBLOQUEADOS</p>
               <p className="mt-2 font-mono text-sm tracking-[0.2em] text-white">
                 {unlockedChannels.length}/5
               </p>
             </div>
-            <div className="hud-chip min-w-[190px]">
+            <div className="hud-chip min-w-0">
               <p className="panel-label text-[0.56rem]">STATUS DA MISSAO</p>
               <p className="mt-2 font-mono text-sm tracking-[0.2em] text-cyan-100">
                 {missionStatus}
@@ -167,7 +167,45 @@ export function ContactMissionGame() {
           </div>
         </div>
 
-        <div className="mt-6 grid gap-4 xl:grid-cols-[minmax(0,1.2fr)_360px]">
+        <div className="mt-5 grid gap-4 xl:grid-cols-[minmax(0,1.2fr)_360px]">
+          <div className="grid gap-3 md:hidden">
+            {contactMissionChannels.map((channel) => {
+              const Icon = nodeIcons[channel.id];
+              const unlocked = unlockedChannels.includes(channel.id);
+              const selected = selectedChannel === channel.id;
+
+              return (
+                <a
+                  key={channel.id}
+                  href={channel.href}
+                  target={isExternalHref(channel.href) ? "_blank" : undefined}
+                  rel={isExternalHref(channel.href) ? "noreferrer noopener" : undefined}
+                  onClick={() => setSelectedChannel(channel.id)}
+                  className={`reading-surface flex min-h-14 items-center justify-between gap-3 rounded-[1.2rem] px-4 py-3 ${
+                    selected ? "border-cyan-300/28 bg-cyan-300/10" : ""
+                  }`}
+                >
+                  <span className="flex min-w-0 items-center gap-3">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-cyan-300/20 bg-slate-950/80">
+                      <Icon size={18} />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block font-mono text-xs uppercase tracking-[0.22em] text-white">
+                        {channel.label}
+                      </span>
+                      <span className="mt-1 block break-all text-xs text-slate-400">
+                        {channel.value}
+                      </span>
+                    </span>
+                  </span>
+                  <span className="tech-label shrink-0">
+                    {unlocked ? "online" : "direto"}
+                  </span>
+                </a>
+              );
+            })}
+          </div>
+
           <div className="reading-surface rounded-[1.7rem] p-4 sm:p-5">
             <div className="grid gap-4 lg:grid-cols-[minmax(0,1.15fr)_320px]">
               <div className="rounded-[1.4rem] border border-cyan-300/10 bg-black/20 p-3 sm:p-4">
@@ -260,7 +298,7 @@ export function ContactMissionGame() {
                   </div>
                 </div>
 
-                <div className="mt-4 grid gap-3 md:hidden sm:grid-cols-2">
+                <div className="mt-4 hidden gap-3 md:hidden sm:grid-cols-2">
                   {contactMissionChannels.map((channel) => {
                     const Icon = nodeIcons[channel.id];
                     const isSelected = selectedChannel === channel.id;
@@ -301,7 +339,7 @@ export function ContactMissionGame() {
                 <div className="hud-chip overflow-hidden p-0">
                   <div className="relative px-4 py-4">
                     <motion.div
-                      className="pointer-events-none absolute inset-y-0 left-[-25%] w-[24%] bg-[linear-gradient(90deg,transparent,rgba(125,211,252,0.14),transparent)]"
+                      className="pointer-events-none absolute inset-y-0 left-[-25%] hidden w-[24%] bg-[linear-gradient(90deg,transparent,rgba(125,211,252,0.14),transparent)] md:block"
                       animate={reduceMotion ? undefined : { x: ["0%", "520%"] }}
                       transition={{ duration: 2.6, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
                     />
@@ -317,7 +355,7 @@ export function ContactMissionGame() {
                         <span>{activeChannel.protocol}</span>
                       </div>
                     </div>
-                    <p className="mt-3 break-all font-mono text-xs uppercase tracking-[0.22em] text-slate-300">
+                    <p className="mt-3 break-all font-mono text-xs uppercase tracking-[0.18em] text-slate-300 sm:tracking-[0.22em]">
                       {activeChannel.value}
                     </p>
                   </div>
@@ -377,7 +415,7 @@ export function ContactMissionGame() {
                       target={isExternalHref(activeChannel.href) ? "_blank" : undefined}
                       rel={isExternalHref(activeChannel.href) ? "noreferrer noopener" : undefined}
                       aria-disabled={!isActiveUnlocked}
-                      className={`hud-button justify-center ${!isActiveUnlocked ? "pointer-events-none opacity-45" : ""}`}
+                      className={`hud-button min-h-12 justify-center ${!isActiveUnlocked ? "pointer-events-none opacity-45" : ""}`}
                     >
                       {activeChannel.id === "cv" ? <Download size={16} /> : <ArrowUpRight size={16} />}
                       <span>{activeChannel.actionLabel}</span>
@@ -388,7 +426,7 @@ export function ContactMissionGame() {
                         href={externalLinks.whatsapp}
                         target="_blank"
                         rel="noreferrer noopener"
-                        className="hud-button hud-button-secondary justify-center"
+                        className="hud-button hud-button-secondary min-h-12 justify-center"
                       >
                         <MessageCircleMore size={16} />
                         <span>INICIAR CONTATO PRINCIPAL</span>

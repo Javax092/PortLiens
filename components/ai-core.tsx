@@ -7,13 +7,13 @@ export function AICore() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <div className="relative mx-auto flex w-full max-w-[780px] items-center justify-center py-10 sm:py-16">
-      <div className="ai-core-orbit orbit-one" />
-      <div className="ai-core-orbit orbit-two" />
+    <div className="relative mx-auto flex w-full max-w-[780px] items-center justify-center py-5 sm:py-16">
+      <div className="ai-core-orbit orbit-one hidden sm:block" />
+      <div className="ai-core-orbit orbit-two hidden sm:block" />
       <div className="ai-core-orbit orbit-three" />
 
       <motion.div
-        className="relative z-10 flex h-52 w-52 items-center justify-center rounded-full sm:h-64 sm:w-64"
+        className="relative z-10 flex h-40 w-40 items-center justify-center rounded-full sm:h-64 sm:w-64"
         animate={
           reduceMotion
             ? undefined
@@ -32,10 +32,10 @@ export function AICore() {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
               <p className="panel-label">RYAN SYSTEMS</p>
-              <h2 className="mt-3 text-2xl font-semibold tracking-[0.3em] text-white sm:text-3xl">
+              <h2 className="mt-3 text-xl font-semibold tracking-[0.22em] text-white sm:text-3xl sm:tracking-[0.3em]">
                 NUCLEO DE IA
               </h2>
-              <p className="mt-3 font-mono text-[0.72rem] uppercase tracking-[0.28em] text-cyan-100/72">
+              <p className="mt-3 font-mono text-[0.64rem] uppercase tracking-[0.22em] text-cyan-100/72 sm:text-[0.72rem] sm:tracking-[0.28em]">
                 SINAL ESTAVEL
               </p>
             </div>
@@ -43,7 +43,7 @@ export function AICore() {
         </div>
       </motion.div>
 
-      <div className="absolute bottom-0 left-1/2 grid w-full max-w-[620px] -translate-x-1/2 gap-2 px-2 sm:grid-cols-4">
+      <div className="absolute bottom-0 left-1/2 grid w-full max-w-[620px] -translate-x-1/2 gap-2 px-1 sm:grid-cols-4 sm:px-2">
         {coreMetrics.map((item) => (
           <div key={item.label} className="hud-chip">
             <p className="panel-label text-[0.58rem]">{item.label}</p>

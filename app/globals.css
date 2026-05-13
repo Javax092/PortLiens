@@ -18,6 +18,8 @@
 html,
 body {
   min-height: 100%;
+  width: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -35,6 +37,13 @@ body {
   box-sizing: border-box;
   scrollbar-width: thin;
   scrollbar-color: rgba(56, 189, 248, 0.35) rgba(2, 6, 23, 0.25);
+}
+
+img,
+svg,
+canvas,
+video {
+  max-width: 100%;
 }
 
 ::selection {
@@ -67,7 +76,7 @@ body {
       0 24px 90px rgba(0, 0, 0, 0.56),
       inset 0 1px 0 rgba(255, 255, 255, 0.04),
       0 0 0 1px rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(24px);
+    backdrop-filter: blur(20px);
   }
 
   .hud-panel,
@@ -132,7 +141,7 @@ body {
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.03),
       0 16px 42px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(16px);
+    backdrop-filter: blur(14px);
   }
 
   .reading-surface::before {
@@ -188,12 +197,14 @@ body {
     font-size: clamp(0.98rem, 1.5vw, 1.05rem);
     line-height: 1.8;
     text-shadow: 0 1px 16px rgba(2, 6, 23, 0.52);
+    overflow-wrap: anywhere;
   }
 
   .critical-copy {
     color: rgba(241, 245, 249, 0.97);
     line-height: 1.75;
     text-shadow: 0 1px 14px rgba(2, 6, 23, 0.56);
+    overflow-wrap: anywhere;
   }
 
   .data-copy {
@@ -237,6 +248,7 @@ body {
     border: 1px solid rgba(103, 232, 249, 0.18);
     background: linear-gradient(180deg, rgba(34, 211, 238, 0.18), rgba(34, 211, 238, 0.08));
     padding: 0.9rem 1.2rem;
+    min-height: 3rem;
     color: white;
     font-family:
       ui-monospace, SFMono-Regular, SF Mono, Menlo, Monaco, Consolas, Liberation Mono, monospace;
@@ -576,20 +588,37 @@ body {
 
   @media (max-width: 640px) {
     .panel-label {
+      font-size: 0.62rem;
       letter-spacing: 0.22em;
     }
 
     .hud-button,
     .hud-close-button {
+      width: 100%;
       letter-spacing: 0.14em;
+    }
+
+    .hud-panel,
+    .hud-panel-small,
+    .hud-chip,
+    .terminal-shell,
+    .reading-surface {
+      backdrop-filter: blur(8px);
+      box-shadow:
+        0 14px 48px rgba(0, 0, 0, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
     }
 
     .chip {
       font-size: 0.72rem;
       letter-spacing: 0.12em;
+      max-width: 100%;
+      overflow-wrap: anywhere;
     }
 
     .tech-label {
+      max-width: 100%;
+      overflow-wrap: anywhere;
       letter-spacing: 0.16em;
     }
   }
@@ -1069,11 +1098,23 @@ body {
   .space-satellite:nth-child(n + 2) {
     opacity: 0.75;
   }
+
+  .space-nebula {
+    filter: blur(42px);
+  }
 }
 
 @media (max-width: 639px) {
   .hud-panel {
     clip-path: polygon(0 14px, 14px 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 11vw, 2.7rem);
+  }
+
+  .section-title {
+    line-height: 1.15;
   }
 
   .planet-primary {
@@ -1100,12 +1141,21 @@ body {
 
   .orbital-node-status,
   .orbital-ufo,
+  .orbital-center,
+  .orbital-sweep-line,
   .planet-rim,
   .shooting-star:nth-child(n + 2),
   .space-satellite:nth-child(n + 2),
   .energy-pulse:nth-child(n + 2),
   .space-distortion {
     display: none;
+  }
+
+  .planet-shadow,
+  .planet-atmosphere,
+  .space-nebula.nebula-e,
+  .space-nebula.nebula-f {
+    opacity: 0.2;
   }
 
   .hud-chip,
@@ -1117,6 +1167,11 @@ body {
     margin: -1rem -1rem 0.8rem;
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .terminal-led {
+    height: 0.6rem;
+    width: 0.6rem;
   }
 }
 

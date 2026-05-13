@@ -63,6 +63,19 @@ const energyPulses = [
 export function SpaceBackground() {
   const reduceMotion = useReducedMotion();
   const rootRef = useRef<HTMLDivElement>(null);
+  const mobileLite = useMemo(
+    () => ({
+      far: farStars.slice(0, 28),
+      mid: midStars.slice(0, 16),
+      dust: dust.slice(0, 8),
+      microDust: microDust.slice(0, 10),
+      asteroids: asteroids.slice(0, 1),
+      shootingStars: shootingStars.slice(0, 1),
+      satellites: satellites.slice(0, 1),
+      energyPulses: energyPulses.slice(0, 1),
+    }),
+    [],
+  );
 
   useEffect(() => {
     const root = rootRef.current;
@@ -120,7 +133,7 @@ export function SpaceBackground() {
       <div className="space-nebula nebula-f" />
       <div className="planet-shadow space-parallax layer-planet" />
 
-      <div className="space-parallax layer-deep absolute inset-0">
+      <div className="space-parallax layer-deep absolute inset-0 hidden sm:block">
         {starLayers[0].map((star) => (
           <span
             key={star.id}
@@ -137,7 +150,24 @@ export function SpaceBackground() {
         ))}
       </div>
 
-      <div className="space-parallax layer-mid absolute inset-0">
+      <div className="space-parallax layer-deep absolute inset-0 sm:hidden">
+        {mobileLite.far.map((star) => (
+          <span
+            key={star.id}
+            className="star-particle"
+            style={{
+              left: star.left,
+              top: star.top,
+              width: star.size,
+              height: star.size,
+              animationDelay: star.delay,
+              animationDuration: star.duration,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="space-parallax layer-mid absolute inset-0 hidden sm:block">
         {starLayers[1].map((star) => (
           <span
             key={star.id}
@@ -154,8 +184,40 @@ export function SpaceBackground() {
         ))}
       </div>
 
-      <div className="space-parallax layer-mid absolute inset-0">
-        {shootingStars.map((item) => (
+      <div className="space-parallax layer-mid absolute inset-0 sm:hidden">
+        {mobileLite.mid.map((star) => (
+          <span
+            key={star.id}
+            className="star-particle star-bright"
+            style={{
+              left: star.left,
+              top: star.top,
+              width: star.size,
+              height: star.size,
+              animationDelay: star.delay,
+              animationDuration: star.duration,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="space-parallax layer-mid absolute inset-0 hidden sm:block">
+        {(reduceMotion ? [] : shootingStars).map((item) => (
+          <span
+            key={`${item.left}-${item.top}`}
+            className="shooting-star"
+            style={{
+              left: item.left,
+              top: item.top,
+              animationDelay: item.delay,
+              animationDuration: item.duration,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="space-parallax layer-mid absolute inset-0 sm:hidden">
+        {(reduceMotion ? [] : mobileLite.shootingStars).map((item) => (
           <span
             key={`${item.left}-${item.top}`}
             className="shooting-star"
@@ -176,7 +238,7 @@ export function SpaceBackground() {
       <div className="moon-secondary space-parallax layer-mid" />
       <div className="space-distortion space-parallax layer-mid" />
 
-      <div className="space-parallax layer-foreground absolute inset-0">
+      <div className="space-parallax layer-foreground absolute inset-0 hidden sm:block">
         {energyPulses.map((item) => (
           <span
             key={`${item.left}-${item.top}`}
@@ -238,6 +300,85 @@ export function SpaceBackground() {
         ))}
 
         {satellites.map((satellite) => (
+          <span
+            key={`${satellite.left}-${satellite.top}`}
+            className="space-satellite"
+            style={
+              {
+                left: satellite.left,
+                top: satellite.top,
+                width: `${satellite.size}px`,
+                height: `${satellite.size / 2}px`,
+                animationDuration: `${satellite.duration}s`,
+                animationDelay: satellite.delay,
+              } as React.CSSProperties
+            }
+          />
+        ))}
+      </div>
+
+      <div className="space-parallax layer-foreground absolute inset-0 sm:hidden">
+        {mobileLite.energyPulses.map((item) => (
+          <span
+            key={`${item.left}-${item.top}`}
+            className="energy-pulse"
+            style={{
+              left: item.left,
+              top: item.top,
+              width: `${item.size}px`,
+              height: `${item.size}px`,
+              animationDelay: item.delay,
+              animationDuration: item.duration,
+            }}
+          />
+        ))}
+
+        {mobileLite.dust.map((item) => (
+          <span
+            key={item.id}
+            className="space-dust"
+            style={{
+              left: item.left,
+              top: item.top,
+              width: item.width,
+              height: item.height,
+              animationDelay: item.delay,
+            }}
+          />
+        ))}
+
+        {mobileLite.microDust.map((item) => (
+          <span
+            key={item.id}
+            className="space-dust micro"
+            style={{
+              left: item.left,
+              top: item.top,
+              width: item.size,
+              height: "2px",
+              animationDelay: item.delay,
+            }}
+          />
+        ))}
+
+        {mobileLite.asteroids.map((asteroid) => (
+          <span
+            key={`${asteroid.left}-${asteroid.top}`}
+            className="space-asteroid"
+            style={
+              {
+                left: asteroid.left,
+                top: asteroid.top,
+                width: `${asteroid.size}px`,
+                height: `${asteroid.size}px`,
+                animationDuration: `${asteroid.duration}s`,
+                animationDelay: `${asteroid.delay}s`,
+              } as React.CSSProperties
+            }
+          />
+        ))}
+
+        {mobileLite.satellites.map((satellite) => (
           <span
             key={`${satellite.left}-${satellite.top}`}
             className="space-satellite"

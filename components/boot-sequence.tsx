@@ -14,6 +14,13 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
   const [charIndex, setCharIndex] = useState(0);
 
   useEffect(() => {
+    if (window.matchMedia("(max-width: 639px)").matches) {
+      onComplete();
+      return;
+    }
+  }, [onComplete]);
+
+  useEffect(() => {
     if (lineIndex >= bootSequence.length) {
       const timer = window.setTimeout(onComplete, reduceMotion ? 180 : 900);
       return () => window.clearTimeout(timer);

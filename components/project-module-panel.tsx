@@ -44,7 +44,7 @@ export function ProjectModulePanel({ project, open, onClose }: ProjectModulePane
           />
 
           <motion.aside
-            className="fixed inset-x-3 bottom-3 top-24 z-[80] flex w-auto flex-col rounded-[1.8rem] border border-cyan-300/12 bg-[#06101f]/96 p-5 shadow-[0_20px_100px_rgba(0,0,0,0.64)] backdrop-blur-2xl sm:inset-y-4 sm:right-4 sm:left-auto sm:w-[min(92vw,470px)] sm:p-6"
+            className="fixed inset-x-3 bottom-3 top-20 z-[80] flex w-auto flex-col overflow-y-auto rounded-[1.5rem] border border-cyan-300/12 bg-[#06101f]/96 p-4 shadow-[0_20px_100px_rgba(0,0,0,0.64)] backdrop-blur-xl sm:inset-y-4 sm:right-4 sm:left-auto sm:w-[min(92vw,470px)] sm:rounded-[1.8rem] sm:p-6"
             initial={reduceMotion ? { opacity: 0 } : { opacity: 0, x: 48 }}
             animate={{ opacity: 1, x: 0 }}
             exit={reduceMotion ? { opacity: 0 } : { opacity: 0, x: 48 }}
@@ -74,7 +74,7 @@ export function ProjectModulePanel({ project, open, onClose }: ProjectModulePane
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
               <div className="hud-chip">
                 <p className="panel-label text-[0.58rem]">STACK</p>
-                <p className="critical-copy mt-2 text-sm">{project.stack.join(" / ")}</p>
+                <p className="critical-copy mt-2 break-words text-sm">{project.stack.join(" / ")}</p>
               </div>
               <div className="hud-chip">
                 <p className="panel-label text-[0.58rem]">ATIVIDADE</p>
@@ -152,9 +152,11 @@ export function ProjectModulePanel({ project, open, onClose }: ProjectModulePane
 
             <div className="mt-5 rounded-[1.4rem] border border-emerald-300/10 bg-emerald-950/10 p-4">
               <p className="panel-label text-emerald-200/70">LOGS DO MODULO</p>
-              <div className="mt-3 space-y-2 font-mono text-xs uppercase tracking-[0.22em] text-emerald-100/88">
+              <div className="mt-3 space-y-2 font-mono text-xs uppercase tracking-[0.18em] text-emerald-100/88 sm:tracking-[0.22em]">
                 {project.logs.map((log) => (
-                  <p key={log}>{log}</p>
+                  <p key={log} className="break-words">
+                    {log}
+                  </p>
                 ))}
               </div>
             </div>
